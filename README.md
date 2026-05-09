@@ -28,6 +28,90 @@ topic is **shootable order** — earlier subjects motivate later ones.
 
 ---
 
+## Status — 2026-05-09
+
+Production cadence has crossed from planning into the first full cuts.
+The week's deltas:
+
+- **1.0 channel preview** — pilot moved from script-only to a full
+  B-roll layer. A-roll (Janet narration) was rendered earlier; the
+  redo adds a five-component B-roll (cold-open stinger, topic-rotator
+  chip strip, 5×10 video matrix bloom, Janet self-credit lower-third,
+  end-card lockup) plus the channel background bed at 8% opacity.
+  Dual-aspect: long-form 16:9 + Shorts 9:16.
+- **1.1 *The Hallucination Tax*** — spec rewritten end-to-end against
+  the locked production architecture (see "Working stack" below)
+  without touching Janet's narration text or the rendered HeyGen
+  takes. The script is frozen; the render path is what changed.
+- **1.5 *Negative Verification*** and **2.1 *The Family Court that
+  ate the file*** — priority-10 #2 and #3 (after 1.1 at #1) drafted
+  to full per-video shape: Janet narration, Claude Design B-roll
+  prompts, DaVinci Resolve assembly plan, HeyGen call payloads. 1.5
+  is the topic-1 demo episode; 2.1 is the topic-2 entry.
+- **Channel background bed** locked at round 2: twelve stair-fragment
+  plates rendered as a derivative-not-copy of the impossible-staircase
+  visual idiom (named-Escher motifs excluded). The plate's narrative
+  load is the multi-rational contradiction motif — every plate composes
+  several independently-rational stair flights that share an explicit
+  reference (engraved elevation grid, "datum ±0.00" line, claimed-
+  landing band) and visibly disagree on it. The design IS the problem
+  statement; the same shape Quantapix is designed to detect in legal
+  filings and financial statements.
+- **Dual-aspect (16:9 long-form + 9:16 Shorts) production lock** —
+  same Resolve project, two parallel timelines, identical A-roll
+  audio. The long-form carries Janet as a corner PIP and full-frame
+  B-roll cues; the Shorts cut flips the layout (Janet hero, B-roll
+  in a 1080×280 lower inset band).
+
+What's coming up:
+
+- HeyGen render runs for 1.5 (9 beats × 2 aspects = 18 takes) and
+  2.1 (8 beats × 2 aspects = 16 takes), tightened lipsync and
+  pronunciation gates.
+- Per-cue Remotion B-roll renders against the per-video Claude
+  Design bundles.
+- First end-to-end production cycle through the full pipeline
+  (1.0 ships first as the gating smoke test for the cross-aspect
+  Resolve scripting; 1.1 follows; 1.5 + 2.1 inherit the same
+  shape).
+
+## Working stack (locked)
+
+- **A-roll (voice + face).** HeyGen Photo Avatar V against a single
+  locked still. Voice generated via HeyGen's Design-a-Voice (channel
+  voice locked retroactively to the production preview at
+  <https://quantapix.com/videos/Janet-preview.mp4>). Per-beat
+  generation — one MP4 + sidecar SRT per script beat per aspect —
+  rather than monolithic takes; cheaper re-cuts, tighter lipsync.
+- **B-roll (cards + graphics + animations).** Remotion: React-based
+  programmatic video. Per-video components live alongside the
+  script as JSX in a small workspace package; brand tokens
+  (palette, type, easing) are read through a generated `tokens.ts`
+  so no hex literals leak into renders.
+- **Composition + finishing.** DaVinci Resolve Studio, scripted via
+  an in-house Python wrapper plus a recipe library that turns
+  per-episode `assemble.py` drivers from ~260-line scripts into
+  ~80-line ones. The wrapper handles import, two-aspect timeline
+  setup, A-roll comping with breath gaps, B-roll cue placement at
+  marker frames, and back-to-back YouTube-master + Shorts render.
+  Fusion node-tree authoring (Janet PIP corner ring + soft shadow,
+  Shorts inset band, per-cue compositing) is manual at v1, guided
+  by per-skill node-tree force-graph diagrams.
+- **Captions + loudness.** Resolve native subtitle generation from
+  the A-roll track (V4 burn-in plus sidecar SRT for upload
+  metadata); Fairlight loudness normalization to −14 LUFS / −1 dBTP
+  on the master bus.
+- **Music + SFX.** YouTube Audio Library (free, no-attribution-
+  required filter, monetization-safe); per-topic register pivot
+  (T1 ambient electronic / T2 string-pad / etc.). SFX library
+  selected per cue, kept sparing — no whooshes, no risers under
+  Janet.
+
+ElevenLabs is deferred — only revisited if HeyGen's voice quality
+fails a real production take. So far it hasn't.
+
+---
+
 ## Topic 1 — Why theorem provers… instead of semantic searches?
 
 *Profile mix: **P1** dominant, P2 / P3 supporting.*
@@ -126,26 +210,31 @@ topic is **shootable order** — earlier subjects motivate later ones.
 - Every closing card carries the same Quantapix wordmark + a
   one-sentence pull-quote.
 
-## Janet narration — working stack
-
-Decision deferred until after the outline is locked; the working
-candidates are:
-
-- **Voice cloning:** ElevenLabs (high naturalness, SSML pacing).
-  Fallback: PlayHT.
-- **Photo → video lipsync from a single still:** HeyGen Photo Avatar
-  IV. Fallback: D-ID Studio.
-- **Render pipeline:** Remotion (React-based programmatic video) for
-  animated cards/text + D3 / Cytoscape composition. Fallback: Motion
-  Canvas.
-
 ## Cadence
 
 Refreshed weekly from the private working tree. Outline edits, new
 profile-area tags, and finalised scripts are committed as ordinary
-diffs — the commit log is the change record. Scripts land under
-`scripts/<topic-slug>/<n.n>.md` as they finish; the master plan in
-this README stays in sync.
+diffs — the commit log is the change record.
+
+Per-video deliverables follow a four-file shape under
+`scripts/<topic-slug>/<n.m>-<slug>/`:
+
+- `script.md` — Janet narration with timing, on-screen card cues,
+  graphic-spec slugs, pacing notes for the voice generator.
+- `design.md` — Claude Design prompts for the per-video B-roll
+  bundle; tokens contract; cue-state spec for each Remotion
+  component.
+- `resolve.md` — DaVinci Resolve project preset, V1–V4 / A1–A4
+  track layout, A↔B sync strategy via marker CSV, render preset.
+- `SHOOTING.md` — production-readiness gate (voice, takes,
+  per-cue motion exports, marker CSV, SFX, music) plus the
+  cut → review → render → publish sequence.
+
+Plus a `heygen-aroll.md` with the per-beat HeyGen call payloads
+when the episode goes into A-roll production. Three episodes
+currently carry the full quad: 1.1, 1.5, 2.1. Channel pilot 1.0
+carries an integrated identity README and shares the same
+production architecture.
 
 ## Contact
 
