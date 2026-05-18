@@ -1,4 +1,4 @@
-# qexplaining
+# qexplaining-public
 
 > 50 videos = 5 topics × 10 subjects each. 10–15 min per video,
 > narrated by **Janet** over animated cards/text + D3.js / Cytoscape.js
@@ -28,52 +28,65 @@ topic is **shootable order** — earlier subjects motivate later ones.
 
 ---
 
-## Status — 2026-05-09
+## Status — 2026-05-17
 
-Production cadence has crossed from planning into the first full cuts.
-The week's deltas:
+The three production episodes (1.1 + 1.5 + 2.1) have crossed the
+final pre-Resolve gate: every B-roll component is Remotion-ported,
+every internal cue is anchored to the actual narration word
+boundaries, and both per-episode operator runsheets are locked.
+What landed this week:
 
-- **1.0 channel preview** — pilot moved from script-only to a full
-  B-roll layer. A-roll (Janet narration) was rendered earlier; the
-  redo adds a five-component B-roll (cold-open stinger, topic-rotator
-  chip strip, 5×10 video matrix bloom, Janet self-credit lower-third,
-  end-card lockup) plus the channel background bed at 8% opacity.
-  Dual-aspect: long-form 16:9 + Shorts 9:16.
-- **1.1 *The Hallucination Tax*** — spec rewritten end-to-end against
-  the locked production architecture (see "Working stack" below)
-  without touching Janet's narration text or the rendered HeyGen
-  takes. The script is frozen; the render path is what changed.
-- **1.5 *Negative Verification*** and **2.1 *The Family Court that
-  ate the file*** — priority-10 #2 and #3 (after 1.1 at #1) drafted
-  to full per-video shape: Janet narration, Claude Design B-roll
-  prompts, DaVinci Resolve assembly plan, HeyGen call payloads. 1.5
-  is the topic-1 demo episode; 2.1 is the topic-2 entry.
-- **Channel background bed** locked at round 2: twelve stair-fragment
-  plates rendered as a derivative-not-copy of the impossible-staircase
-  visual idiom (named-Escher motifs excluded). The plate's narrative
-  load is the multi-rational contradiction motif — every plate composes
-  several independently-rational stair flights that share an explicit
-  reference (engraved elevation grid, "datum ±0.00" line, claimed-
-  landing band) and visibly disagree on it. The design IS the problem
-  statement; the same shape Quantapix is designed to detect in legal
-  filings and financial statements.
-- **Dual-aspect (16:9 long-form + 9:16 Shorts) production lock** —
-  same Resolve project, two parallel timelines, identical A-roll
-  audio. The long-form carries Janet as a corner PIP and full-frame
-  B-roll cues; the Shorts cut flips the layout (Janet hero, B-roll
-  in a 1080×280 lower inset band).
+- **B-roll Remotion port complete** for 1.1, 1.5, 2.1 — 16 G-slot
+  compositions registered, rendering to ProRes 4444 RGBA at the
+  channel-locked 1920×1080 / 30 fps. Each composition's internal
+  cue frames (line type-in, recolor, glow ramp, layout crossfade,
+  zoom transition, etc.) re-anchored to the production-locked
+  marker CSVs — the SRT word boundaries from the actual Janet
+  takes, not the script's narrative estimates.
+- **9:16-only HeyGen rule** (locked 2026-05-10) confirmed across
+  all three production episodes. HeyGen ships portrait; Resolve
+  composites the 16:9 long-form via Pan/Tilt crop on the keyed
+  9:16 source. Halves credit spend, halves render latency,
+  eliminates the crown-crop class of bugs that plagued earlier
+  square→16:9 attempts.
+- **1.1 production-prep parity** with 1.5 + 2.1. Both per-episode
+  authoring aids landed: a Fusion-keyframe notes file (S5 corner
+  PIP + S6 Shorts inset band + S7 trust-boundary glow timing) and
+  a 10-phase operator runsheet from pre-flight through upload. 1.1
+  is the channel's first end-to-end pass; the per-episode keyframe
+  choreography it locks in templates for 1.5+.
+- **Channel-canonical proper-noun pronunciation pins** locked at
+  the channel-wide voice config. **Qnarre = `Kuh-NAR-REE`** (three
+  syllables; stressed middle; French *qnarré* ending — channel
+  debut at 2.1 beat 06 with 8 narrated instances); **Qresev =
+  `Kuh-RES-ev`** (three syllables; stressed middle `-RES-`;
+  sibling-shape to Qnarre — channel debut at 2.1 close). Per-take
+  drift inside an episode (or across two episodes) is a re-render
+  trigger, not a tolerance accept: trivially-verifiable consistency
+  is the channel's structural promise.
+- **Per-episode `assemble.py`** drivers (DaVinci Resolve assembly
+  via the in-house Python wrapper + recipe library) verified
+  against the 9:16-only source path. Single take-pool import; two
+  parallel timelines off the same source; per-cue Remotion MOVs
+  placed at marker frames; back-to-back YouTube-master + Shorts
+  render.
 
 What's coming up:
 
-- HeyGen render runs for 1.5 (9 beats × 2 aspects = 18 takes) and
-  2.1 (8 beats × 2 aspects = 16 takes), tightened lipsync and
-  pronunciation gates.
-- Per-cue Remotion B-roll renders against the per-video Claude
-  Design bundles.
-- First end-to-end production cycle through the full pipeline
-  (1.0 ships first as the gating smoke test for the cross-aspect
-  Resolve scripting; 1.1 follows; 1.5 + 2.1 inherit the same
-  shape).
+- First end-to-end Resolve run on 1.1 — assemble.py executes; S5 +
+  S6 Fusion template builds (channel-wide one-time authoring); S7
+  per-episode kernel-layer breathing-glow keyframes; S8 subtitle
+  generation from the A-roll; S9 loudness normalization to −14
+  LUFS; S10 dual render (long + short).
+- Channel music-bed selection (T1 register — minimalism / ambient
+  electronic) — the loop chosen for 1.1 becomes the T1 default;
+  every subsequent T1 episode must pick a different loop per the
+  channel rebrand-event rule.
+- Publish path validation: long-form master to the channel's
+  binary CDN at `videos.quantapix.com`; YouTube upload with the
+  AI-disclosure toggle and the stack disclosure in the description.
+- 1.5 + 2.1 inherit the 1.1 path; 1.6+ inherit the lift-eligible
+  pieces that fall out of running the chain three times.
 
 ## Working stack (locked)
 
@@ -216,7 +229,7 @@ Refreshed weekly from the private working tree. Outline edits, new
 profile-area tags, and finalised scripts are committed as ordinary
 diffs — the commit log is the change record.
 
-Per-video deliverables follow a four-file shape under
+Per-video deliverables follow a seven-file shape under
 `scripts/<topic-slug>/<n.m>-<slug>/`:
 
 - `script.md` — Janet narration with timing, on-screen card cues,
@@ -229,12 +242,24 @@ Per-video deliverables follow a four-file shape under
 - `SHOOTING.md` — production-readiness gate (voice, takes,
   per-cue motion exports, marker CSV, SFX, music) plus the
   cut → review → render → publish sequence.
+- `FUSION-NOTES.md` — per-episode Fusion-comp keyframe schedule
+  (S5 PIP corner / S6 Shorts inset band / S7 trust-boundary
+  glow), color-page guard, SFX placement, music-bed register.
+- `PRODUCTION.md` — 10-phase operator runsheet from pre-flight
+  through upload (markers → Resolve → assembly → channel-bed
+  + SFX + music → Remotion B-roll → Fusion → finishing →
+  render → cuts rescue → upload).
+- `heygen-aroll.md` — per-beat HeyGen call payloads (one
+  `create_video_from_avatar` payload per script beat) plus
+  per-take acceptance gate.
 
-Plus a `heygen-aroll.md` with the per-beat HeyGen call payloads
-when the episode goes into A-roll production. Three episodes
-currently carry the full quad: 1.1, 1.5, 2.1. Channel pilot 1.0
-carries an integrated identity README and shares the same
-production architecture.
+Plus two Python siblings (`assemble.py` — wrapper-consumer driver;
+`retime_markers.py` — cue-key → SRT-phrase resolver that emits
+the per-episode marker CSVs from the actual take SRTs).
+
+Three episodes currently carry the full set: 1.1, 1.5, 2.1.
+Channel pilot 1.0 carries an integrated identity README and
+shares the same production architecture.
 
 ## Contact
 
