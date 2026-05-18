@@ -264,3 +264,9 @@ shares the same production architecture.
 ## Contact
 
 [`quantapix@gmail.com`](mailto:quantapix@gmail.com)
+
+## License
+
+MIT (`LICENSE`). Content-class repo — explainer scripts, episode
+plans, and production READMEs. Short embedded snippets ride the
+same MIT grant.
